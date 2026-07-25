@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mama's Japan Adventure · Nov 6–21, 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&family=Zen+Maru+Gothic:wght@500;700;900&display=swap');
+
+:root{
+  --washi:#FAF3E7; --sumi:#2E2A26; --shu:#C93A2E; --indigo:#33518E; --deep:#22335F;
+  --momiji:#D9542B; --gold:#E0A32E; --mist:#EFE4D0; --water:#8FA3CF; --white:#FFFDF7;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--washi);color:var(--sumi);font-family:'Zen Maru Gothic',sans-serif;overflow-x:hidden}
+.disp{font-family:'Shippori Mincho',serif}
+
+/* ---------- falling leaves ---------- */
+.leaves{position:fixed;inset:0;pointer-events:none;z-index:5;overflow:hidden}
+.leaf{position:absolute;top:-4vh;animation:fall linear infinite}
+.leaf svg{animation:sway ease-in-out infinite alternate;display:block}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+@keyframes sway{from{transform:translateX(-18px) rotate(-30deg)}to{transform:translateX(18px) rotate(30deg)}}
+@media (prefers-reduced-motion: reduce){.leaf,.leaf svg{animation:none;display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;text-align:center;padding:64px 20px 0;max-width:980px;margin:0 auto}
+.eyebrow{color:var(--shu);font-weight:700;letter-spacing:.35em;font-size:13px;text-transform:uppercase}
+.hero h1{font-size:clamp(40px,8vw,84px);font-weight:800;line-height:1.05;margin:14px 0 6px}
+.hero h1 .jp{color:var(--shu)}
+.hero .sub{font-size:clamp(16px,2.4vw,21px);font-weight:500;opacity:.85}
+.dates{display:inline-block;margin-top:18px;background:var(--shu);color:var(--washi);font-weight:900;
+  letter-spacing:.18em;padding:10px 26px;border-radius:999px;font-size:14px}
+
+/* countdown */
+.count{display:flex;gap:14px;justify-content:center;margin:34px 0 6px;flex-wrap:wrap}
+.unit{background:var(--white);border:2px solid var(--sumi);border-radius:16px;min-width:96px;padding:14px 10px 12px;
+  box-shadow:5px 5px 0 rgba(46,42,38,.12)}
+.unit b{display:block;font-family:'Shippori Mincho',serif;font-size:clamp(34px,6vw,52px);font-weight:800;line-height:1}
+.unit span{display:block;margin-top:6px;font-size:11px;letter-spacing:.25em;font-weight:700;color:var(--shu);text-transform:uppercase}
+.count-note{font-size:15px;font-weight:700;color:var(--indigo)}
+
+/* hero scene */
+.scene{margin:26px auto -6px;max-width:760px;display:block}
+
+/* ---------- stamp book ---------- */
+.stampbar{position:sticky;top:0;z-index:8;background:rgba(250,243,231,.94);backdrop-filter:blur(4px);
+  border-bottom:2px solid var(--sumi);padding:10px 16px}
+.stampbar .inner{max-width:980px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
+.stampbar .label{font-weight:900;font-size:13px;letter-spacing:.12em;color:var(--shu);text-transform:uppercase}
+.slots{display:flex;gap:8px;flex-wrap:wrap}
+.slot{width:36px;height:36px;border-radius:50%;border:2px dashed rgba(46,42,38,.35);display:grid;place-items:center;
+  font-size:15px;font-weight:900;color:transparent;transition:all .35s}
+.slot.got{border:none;background:var(--shu);color:var(--washi);transform:rotate(-8deg);
+  box-shadow:0 0 0 2px var(--washi),0 0 0 4px var(--shu);font-family:'Shippori Mincho',serif}
+.slot.got.pop{animation:pop .5s}
+@keyframes pop{0%{transform:scale(.2) rotate(-40deg)}70%{transform:scale(1.25) rotate(-4deg)}100%{transform:scale(1) rotate(-8deg)}}
+
+/* ---------- journey ---------- */
+.journey{max-width:980px;margin:0 auto;padding:56px 20px 30px}
+.journey h2{font-family:'Shippori Mincho',serif;font-size:clamp(28px,4.6vw,42px);text-align:center}
+.journey .hint{text-align:center;margin:10px 0 40px;font-weight:500;opacity:.8}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}}
+.card{background:var(--white);border:2px solid var(--sumi);border-radius:20px;overflow:hidden;cursor:pointer;
+  transition:transform .2s, box-shadow .2s;box-shadow:6px 6px 0 rgba(46,42,38,.10);position:relative;text-align:left}
+.card:hover,.card:focus-visible{transform:translateY(-4px) rotate(-.4deg);box-shadow:9px 10px 0 rgba(201,58,46,.18)}
+.card:focus-visible{outline:3px solid var(--indigo);outline-offset:3px}
+.card .art{display:block;width:100%;height:auto;background:var(--mist)}
+.card .body{padding:16px 18px 18px}
+.card .kanji{position:absolute;top:12px;left:14px;background:var(--washi);border:2px solid var(--sumi);border-radius:12px;
+  padding:4px 9px;font-family:'Shippori Mincho',serif;font-weight:800;font-size:17px}
+.card .when{font-size:11.5px;font-weight:900;letter-spacing:.2em;color:var(--indigo);text-transform:uppercase}
+.card h3{font-family:'Shippori Mincho',serif;font-size:23px;margin:4px 0 4px}
+.card p{font-size:14.5px;opacity:.85}
+.card .stamped{position:absolute;top:10px;right:12px;width:52px;height:52px;border-radius:50%;background:var(--shu);
+  color:var(--washi);display:none;place-items:center;font-family:'Shippori Mincho',serif;font-weight:800;font-size:19px;
+  transform:rotate(10deg);box-shadow:inset 0 0 0 3px var(--washi),0 0 0 2px var(--shu)}
+.card.got .stamped{display:grid;animation:pop .5s}
+
+/* ---------- modal ---------- */
+.overlay{position:fixed;inset:0;background:rgba(46,42,38,.55);display:none;z-index:20;padding:24px;overflow-y:auto}
+.overlay.open{display:flex;align-items:flex-start;justify-content:center}
+.modal{background:var(--washi);border:3px solid var(--sumi);border-radius:24px;max-width:640px;width:100%;margin:auto;
+  overflow:hidden;position:relative;animation:rise .35s ease}
+@keyframes rise{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion: reduce){.modal{animation:none}}
+.modal .art{display:block;width:100%;background:var(--mist)}
+.modal .content{padding:22px 26px 28px}
+.modal .when{font-size:12px;font-weight:900;letter-spacing:.2em;color:var(--indigo);text-transform:uppercase}
+.modal h3{font-family:'Shippori Mincho',serif;font-size:30px;margin:4px 0 2px}
+.modal .jpname{color:var(--shu);font-family:'Shippori Mincho',serif;font-weight:800;font-size:17px;margin-bottom:12px}
+.modal ul{list-style:none;margin-top:6px}
+.modal li{padding:7px 0 7px 30px;position:relative;font-size:15.5px;font-weight:500}
+.modal li::before{content:"";position:absolute;left:2px;top:11px;width:14px;height:14px;background:var(--momiji);
+  clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.close{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:2px solid var(--sumi);
+  background:var(--white);font-size:20px;font-weight:900;cursor:pointer;z-index:2;color:var(--sumi)}
+.close:hover{background:var(--shu);color:var(--washi)}
+.modal .gotstamp{margin-top:16px;display:inline-flex;align-items:center;gap:10px;font-weight:700;color:var(--shu);font-size:14px}
+.modal .gotstamp .mini{width:34px;height:34px;border-radius:50%;background:var(--shu);color:var(--washi);display:grid;
+  place-items:center;font-family:'Shippori Mincho',serif;font-weight:800;transform:rotate(-8deg);
+  box-shadow:inset 0 0 0 2px var(--washi)}
+
+/* ---------- finale + footer ---------- */
+.finale{display:none;max-width:640px;margin:20px auto 0;text-align:center;background:var(--shu);color:var(--washi);
+  border-radius:20px;padding:26px 22px;font-weight:700;font-size:18px}
+.finale.show{display:block;animation:rise .4s ease}
+.finale .big{font-family:'Shippori Mincho',serif;font-size:30px;display:block;margin-bottom:6px}
+footer{text-align:center;padding:48px 20px 60px;font-weight:500;opacity:.8;font-size:14.5px}
+footer .heart{color:var(--shu)}
+</style>
+</head>
+<body>
+
+<div class="leaves" aria-hidden="true" id="leaves"></div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="eyebrow">贈り物 · A gift for Mama</div>
+  <h1 class="disp">We're going to <span class="jp">Japan!</span></h1>
+  <p class="sub">Sixteen days. The four of us. Mountains, temples, deer, hot springs — and you.</p>
+  <div class="dates">NOVEMBER 6 – 21, 2026</div>
+
+  <div class="count" id="count" role="timer" aria-label="Countdown to departure">
+    <div class="unit"><b id="d">–</b><span>days</span></div>
+    <div class="unit"><b id="h">–</b><span>hours</span></div>
+    <div class="unit"><b id="m">–</b><span>minutes</span></div>
+    <div class="unit"><b id="s">–</b><span>seconds</span></div>
+  </div>
+  <p class="count-note" id="countnote">…until wheels-up ✈</p>
+
+  <!-- hero scene: Fuji + torii + sun -->
+  <svg class="scene" viewBox="0 0 760 300" role="img" aria-label="Mount Fuji, a red sun and a floating torii gate">
+    <circle cx="560" cy="86" r="62" fill="var(--shu)"/>
+    <g stroke="var(--sumi)" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".8">
+      <path d="M150,80 q9,-10 18,0 q9,-10 18,0"/><path d="M215,58 q7,-8 14,0 q7,-8 14,0"/>
+    </g>
+    <path d="M20,206 q120,-46 240,-6 q90,28 180,8 q150,-30 300,8 l0,50 -720,0 Z" fill="var(--mist)"/>
+    <path d="M352,60 q9,-13 16,0 q26,52 72,106 q36,42 86,66 l-332,0 q50,-24 86,-66 q46,-54 72,-106 Z" fill="var(--deep)"/>
+    <path d="M352,60 q9,-13 16,0 q11,22 26,46 q-9,11 -17,2 q-8,12 -18,2 q-9,11 -18,-2 q-8,9 -17,-2 q15,-24 26,-46 Z" fill="var(--white)"/>
+    <circle cx="120" cy="216" r="17" fill="var(--momiji)"/><rect x="117.5" y="224" width="5" height="14" fill="var(--sumi)"/>
+    <circle cx="170" cy="226" r="12" fill="var(--gold)"/><rect x="168" y="232" width="4" height="12" fill="var(--sumi)"/>
+    <circle cx="612" cy="220" r="15" fill="var(--gold)"/><rect x="609.5" y="227" width="5" height="13" fill="var(--sumi)"/>
+    <rect x="20" y="240" width="720" height="60" fill="var(--water)"/>
+    <ellipse cx="310" cy="272" rx="46" ry="7" fill="var(--shu)" opacity=".22"/>
+    <g transform="translate(310,262)">
+      <path d="M-42,-46 q42,-11 84,0 l0,8 -84,0 Z" fill="var(--shu)"/>
+      <rect x="-34" y="-34" width="68" height="7" rx="2" fill="var(--shu)"/>
+      <rect x="-27" y="-35" width="8" height="50" rx="2" fill="var(--shu)"/>
+      <rect x="19" y="-35" width="8" height="50" rx="2" fill="var(--shu)"/>
+      <rect x="-3.5" y="-34" width="7" height="15" rx="2" fill="var(--shu)"/>
+    </g>
+    <g stroke="var(--white)" stroke-width="2" opacity=".7" stroke-linecap="round">
+      <path d="M80,262 h36 M500,270 h44 M180,282 h30 M600,258 h26 M400,286 h36"/>
+    </g>
+  </svg>
+</header>
+
+<!-- ============ STAMP BAR ============ -->
+<div class="stampbar">
+  <div class="inner">
+    <span class="label">Stamp rally · <span id="stampcount">0</span>/10 collected</span>
+    <div class="slots" id="slots" aria-label="Collected travel stamps"></div>
+  </div>
+</div>
+
+<!-- ============ JOURNEY ============ -->
+<main class="journey">
+  <h2>Tap each stop to peek at your adventure</h2>
+  <p class="hint">Every stop you open earns a travel stamp — collect all ten! 🍁</p>
+  <div class="grid" id="grid"></div>
+  <div class="finale" id="finale">
+    <span class="big disp">いってらっしゃい！</span>
+    All ten stamps collected — the only thing left is to pack.<br>See you at the gate, Mama <span style="font-size:22px">♥</span>
+  </div>
+</main>
+
+<!-- ============ MODAL ============ -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+  <div class="modal">
+    <button class="close" id="close" aria-label="Close">✕</button>
+    <div class="art" id="mart"></div>
+    <div class="content">
+      <div class="when" id="mwhen"></div>
+      <h3 class="disp" id="mtitle"></h3>
+      <div class="jpname" id="mjp"></div>
+      <ul id="mlist"></ul>
+      <div class="gotstamp"><span class="mini" id="mstamp"></span> Stamp collected!</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Made with <span class="heart">♥</span> by your favourite travel agents (us) · su meile — your family
+</footer>
+
+<script>
+/* ---------------- palette shortcuts for inline SVG scenes ---------------- */
+const C={washi:'#FAF3E7',sumi:'#2E2A26',shu:'#C93A2E',ind:'#33518E',deep:'#22335F',mom:'#D9542B',gold:'#E0A32E',mist:'#EFE4D0',water:'#8FA3CF',white:'#FFFDF7'};
+const box=(inner)=>`<svg viewBox="0 0 640 240" style="display:block;width:100%"><rect width="640" height="240" fill="${C.mist}"/>${inner}</svg>`;
+
+/* ---------------- ten hand-drawn scenes ---------------- */
+const scenes={
+tokyo:box(`
+  <circle cx="540" cy="60" r="36" fill="${C.shu}"/>
+  <g fill="${C.deep}"><rect x="60" y="110" width="46" height="130"/><rect x="120" y="80" width="56" height="160"/><rect x="190" y="120" width="40" height="120"/><rect x="410" y="95" width="52" height="145"/><rect x="475" y="130" width="42" height="110"/></g>
+  <g fill="${C.gold}" opacity=".9"><rect x="70" y="122" width="8" height="8"/><rect x="86" y="140" width="8" height="8"/><rect x="132" y="96" width="8" height="8"/><rect x="152" y="120" width="8" height="8"/><rect x="132" y="150" width="8" height="8"/><rect x="422" y="110" width="8" height="8"/><rect x="442" y="140" width="8" height="8"/><rect x="484" y="146" width="8" height="8"/></g>
+  <g fill="${C.shu}"><path d="M320,70 L296,240 L344,240 Z"/><rect x="286" y="140" width="68" height="8" rx="3"/><rect x="296" y="96" width="48" height="7" rx="3"/><circle cx="320" cy="66" r="5"/></g>
+  <g stroke="${C.white}" stroke-width="9" opacity=".9"><path d="M40,240 L120,196 M100,240 L180,196 M160,240 L240,196 M400,240 L480,196 M460,240 L540,196 M520,240 L600,196"/></g>`),
+nikko:box(`
+  <path d="M0,150 q110,-70 240,-30 q140,44 400,-16 l0,136 -640,0 Z" fill="${C.ind}" opacity=".25"/>
+  <g fill="${C.gold}"><rect x="120" y="180" width="120" height="14" rx="4"/><path d="M110,180 q70,-26 140,0 Z"/><rect x="140" y="140" width="80" height="12" rx="4"/><path d="M132,140 q48,-20 96,0 Z"/><rect x="158" y="104" width="44" height="10" rx="4"/><path d="M152,104 q28,-16 56,0 Z"/></g>
+  <rect x="150" y="194" width="60" height="46" fill="${C.shu}"/>
+  <g><rect x="430" y="60" width="34" height="150" fill="${C.white}"/><path d="M430,60 q17,120 -14,150 l14,0 Z" fill="${C.water}" opacity=".55"/><ellipse cx="447" cy="216" rx="52" ry="12" fill="${C.water}"/></g>
+  <use href="#leafpath" x="0" y="0"/>
+  <g fill="${C.mom}"><circle cx="330" cy="196" r="20"/><rect x="327" y="206" width="6" height="30" fill="${C.sumi}"/></g>
+  <g fill="${C.shu}"><circle cx="560" cy="186" r="16"/><rect x="557.5" y="194" width="5" height="26" fill="${C.sumi}"/></g>`),
+fuji:box(`
+  <circle cx="120" cy="66" r="34" fill="${C.shu}"/>
+  <path d="M300,58 q8,-12 15,0 q24,46 62,92 q30,36 74,56 l-286,0 q44,-20 74,-56 q38,-46 62,-92 Z" fill="${C.deep}"/>
+  <path d="M300,58 q8,-12 15,0 q10,19 22,39 q-8,10 -15,2 q-7,10 -16,2 q-8,9 -16,-2 q-7,8 -15,-2 q13,-20 22,-39 Z" fill="${C.white}"/>
+  <g fill="${C.shu}"><rect x="486" y="150" width="84" height="10" rx="4"/><path d="M478,150 q50,-18 100,0 Z"/><rect x="500" y="118" width="56" height="9" rx="4"/><path d="M494,118 q34,-14 68,0 Z"/><rect x="512" y="92" width="32" height="8" rx="4"/><path d="M508,92 q20,-12 40,0 Z"/><rect x="522" y="160" width="12" height="60"/></g>
+  <g fill="${C.mom}"><circle cx="440" cy="196" r="17"/><rect x="437" y="204" width="6" height="26" fill="${C.sumi}"/></g>
+  <g fill="${C.gold}"><circle cx="130" cy="200" r="15"/><rect x="127.5" y="207" width="5" height="24" fill="${C.sumi}"/></g>
+  <path d="M0,232 h640" stroke="${C.sumi}" stroke-width="3" opacity=".3"/>`),
+kyoto:box(`
+  <circle cx="530" cy="64" r="30" fill="${C.gold}"/>
+  <path d="M0,170 q160,-50 320,-16 q160,32 320,-6 l0,92 -640,0 Z" fill="${C.ind}" opacity=".2"/>
+  <g fill="${C.sumi}"><rect x="200" y="120" width="200" height="14" rx="4"/><path d="M186,120 q114,-38 228,0 Z"/><rect x="230" y="86" width="140" height="12" rx="4"/><path d="M220,86 q80,-26 160,0 Z"/></g>
+  <rect x="226" y="134" width="148" height="52" fill="${C.shu}" opacity=".92"/>
+  <g stroke="${C.white}" stroke-width="4"><path d="M250,134 v52 M282,134 v52 M314,134 v52 M346,134 v52"/></g>
+  <g stroke="${C.sumi}" stroke-width="6"><path d="M226,186 L200,240 M374,186 L400,240 M264,186 v54 M336,186 v54 M300,186 v54"/></g>
+  <g fill="${C.mom}"><circle cx="110" cy="190" r="22"/><rect x="106.5" y="200" width="7" height="34" fill="${C.sumi}"/></g>
+  <g fill="${C.gold}"><circle cx="520" cy="200" r="16"/><rect x="517.5" y="208" width="5" height="26" fill="${C.sumi}"/></g>`),
+nara:box(`
+  <g>${[0,1,2,3,4].map(i=>`<g transform="translate(${70+i*88},40) scale(${1-i*0.06})" opacity="${1-i*0.08}">
+    <path d="M-34,0 q34,-9 68,0 l0,7 -68,0 Z" fill="${C.shu}"/>
+    <rect x="-27" y="12" width="54" height="6" rx="2" fill="${C.shu}"/>
+    <rect x="-22" y="10" width="7" height="120" rx="2" fill="${C.shu}"/>
+    <rect x="15" y="10" width="7" height="120" rx="2" fill="${C.shu}"/></g>`).join('')}
+  </g>
+  <g transform="translate(470,150)">
+    <ellipse cx="30" cy="42" rx="34" ry="22" fill="${C.gold}"/>
+    <path d="M56,30 q14,-14 12,-26 M60,32 q18,-8 22,-20" stroke="${C.sumi}" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="64" cy="24" r="13" fill="${C.gold}"/><circle cx="69" cy="21" r="2" fill="${C.sumi}"/>
+    <g fill="${C.white}"><circle cx="16" cy="34" r="3.4"/><circle cx="30" cy="30" r="3.4"/><circle cx="42" cy="36" r="3.4"/></g>
+    <g fill="${C.gold}"><rect x="8" y="58" width="6" height="26" rx="2"/><rect x="42" y="58" width="6" height="26" rx="2"/></g>
+  </g>
+  <path d="M0,236 h640" stroke="${C.sumi}" stroke-width="3" opacity=".3"/>`),
+osaka:box(`
+  <rect width="640" height="240" fill="${C.deep}"/>
+  <g font-family="'Shippori Mincho',serif" font-weight="800">
+    <rect x="60" y="34" width="54" height="150" rx="8" fill="${C.shu}"/><text x="87" y="80" text-anchor="middle" font-size="34" fill="${C.white}">大</text><text x="87" y="126" text-anchor="middle" font-size="34" fill="${C.white}">阪</text><text x="87" y="168" text-anchor="middle" font-size="22" fill="${C.gold}">♥</text>
+    <rect x="500" y="50" width="54" height="120" rx="8" fill="${C.gold}"/><text x="527" y="96" text-anchor="middle" font-size="32" fill="${C.deep}">食</text><text x="527" y="142" text-anchor="middle" font-size="32" fill="${C.deep}">堂</text>
+  </g>
+  <g transform="translate(230,70)">
+    <path d="M0,60 a90,62 0 0 0 180,0 Z" fill="${C.white}"/>
+    <path d="M14,60 h152" stroke="${C.shu}" stroke-width="6"/>
+    <g fill="${C.sumi}"><circle cx="52" cy="34" r="17"/><circle cx="96" cy="26" r="17"/><circle cx="138" cy="36" r="17"/></g>
+    <g stroke="${C.gold}" stroke-width="4" fill="none" stroke-linecap="round"><path d="M46,12 q4,-10 -2,-16 M92,6 q4,-10 -2,-16 M136,14 q4,-10 -2,-16"/></g>
+  </g>
+  <g fill="${C.gold}" opacity=".9"><circle cx="180" cy="200" r="4"/><circle cx="240" cy="212" r="4"/><circle cx="330" cy="204" r="4"/><circle cx="420" cy="214" r="4"/><circle cx="470" cy="198" r="4"/></g>`),
+kurama:box(`
+  <g fill="${C.deep}" opacity=".85"><path d="M60,240 L60,40 q6,-14 12,0 L72,240 Z M150,240 L150,20 q6,-14 12,0 L162,240 Z M480,240 L480,30 q6,-14 12,0 L492,240 Z M560,240 L560,55 q6,-14 12,0 L572,240 Z"/></g>
+  <g fill="${C.ind}" opacity=".5"><path d="M110,240 L110,70 q5,-12 10,0 L120,240 Z M520,240 L520,80 q5,-12 10,0 L530,240 Z"/></g>
+  <path d="M200,240 q60,-90 120,-130 q60,-40 120,-50" stroke="${C.washi}" stroke-width="26" fill="none" stroke-linecap="round"/>
+  <g stroke="${C.sumi}" stroke-width="2.5" opacity=".5">${[0,1,2,3,4,5].map(i=>`<path d="M${212+i*36},${226-i*26} h22" transform="rotate(${-i*3} ${223+i*36} ${226-i*26})"/>`).join('')}</g>
+  <g><rect x="392" y="34" width="16" height="26" rx="4" fill="${C.shu}"/><rect x="388" y="30" width="24" height="6" rx="3" fill="${C.sumi}"/><rect x="398" y="60" width="4" height="14" fill="${C.sumi}"/></g>
+  <g><rect x="300" y="86" width="14" height="22" rx="4" fill="${C.shu}"/><rect x="297" y="82" width="20" height="5" rx="2" fill="${C.sumi}"/></g>
+  <g fill="${C.mom}"><circle cx="260" cy="60" r="20"/><circle cx="620" cy="120" r="16"/></g>
+  <g fill="${C.gold}"><circle cx="340" cy="40" r="14"/></g>`),
+arashiyama:box(`
+  <g>${[0,1,2,3,4,5,6,7].map(i=>{const x=50+i*58;return `<g><rect x="${x}" y="0" width="17" height="240" rx="8" fill="${i%2?'#7A8B5E':'#8fa06b'}"/><path d="M${x},60 h17 M${x},130 h17 M${x},196 h17" stroke="${C.washi}" stroke-width="3"/></g>`}).join('')}</g>
+  <g transform="translate(430,130)">
+    <circle cx="40" cy="40" r="34" fill="#A9744F"/>
+    <circle cx="40" cy="34" r="22" fill="#E8D8C6"/>
+    <circle cx="32" cy="30" r="3" fill="${C.sumi}"/><circle cx="48" cy="30" r="3" fill="${C.sumi}"/>
+    <path d="M35,42 q5,4 10,0" stroke="${C.sumi}" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <circle cx="12" cy="26" r="9" fill="#A9744F"/><circle cx="68" cy="26" r="9" fill="#A9744F"/>
+  </g>
+  <use href="#leafpath"/>
+  <g fill="${C.mom}" opacity=".95"><circle cx="120" cy="30" r="9"/><circle cx="300" cy="50" r="8"/><circle cx="560" cy="26" r="9"/></g>`),
+hiroshima:box(`
+  <path d="M0,170 q160,-40 320,-12 q160,26 320,-8 l0,90 -640,0 Z" fill="${C.ind}" opacity=".18"/>
+  <g stroke="${C.sumi}" stroke-width="5" fill="none">
+    <ellipse cx="320" cy="92" rx="42" ry="34"/>
+    <path d="M278,110 v70 M362,110 v70 M296,124 v56 M344,124 v56 M320,126 v54 M278,180 h84"/>
+  </g>
+  <g>${[[120,70,C.shu],[170,110,C.gold],[480,80,C.mom],[540,120,C.ind],[210,50,C.ind],[440,140,C.shu]].map(([x,y,c])=>`
+    <g transform="translate(${x},${y})"><path d="M0,0 L16,8 L0,16 L-6,8 Z" fill="${c}"/><path d="M0,0 L-14,6 L-6,8 Z" fill="${c}" opacity=".7"/></g>`).join('')}
+  </g>
+  <path d="M40,224 q60,-14 120,0 q60,14 120,0 q60,-14 120,0 q60,14 120,0 q50,-12 80,0" stroke="${C.water}" stroke-width="8" fill="none" stroke-linecap="round"/>`),
+miyajima:box(`
+  <rect width="640" height="150" fill="#F4C98F"/>
+  <circle cx="320" cy="112" r="46" fill="${C.shu}"/>
+  <path d="M0,120 q90,-56 180,-26 q60,20 120,14 l0,42 -300,0 Z" fill="${C.deep}" opacity=".8"/>
+  <path d="M340,128 q90,-46 180,-20 q70,20 120,10 l0,32 -300,0 Z" fill="${C.deep}" opacity=".65"/>
+  <rect x="0" y="150" width="640" height="90" fill="${C.water}"/>
+  <ellipse cx="320" cy="196" rx="70" ry="10" fill="${C.shu}" opacity=".25"/>
+  <g transform="translate(320,182)">
+    <path d="M-62,-70 q62,-16 124,0 l0,11 -124,0 Z" fill="${C.shu}"/>
+    <rect x="-50" y="-52" width="100" height="9" rx="3" fill="${C.shu}"/>
+    <rect x="-40" y="-54" width="11" height="72" rx="3" fill="${C.shu}"/>
+    <rect x="29" y="-54" width="11" height="72" rx="3" fill="${C.shu}"/>
+    <rect x="-5" y="-52" width="10" height="20" rx="3" fill="${C.shu}"/>
+  </g>
+  <g stroke="${C.white}" stroke-width="2.4" opacity=".75" stroke-linecap="round"><path d="M60,176 h44 M520,186 h50 M160,206 h36 M440,214 h40 M240,222 h30"/></g>`)
+};
+
+/* ---------------- stops data ---------------- */
+const stops=[
+ {id:'tokyo',k:'東京',name:'Tokyo',when:'Nov 6–10 · Days 1–4',teaser:'Neon, temples and the busiest crossing on Earth.',
+  list:['Senso-ji temple and its giant red lantern','Shibuya Crossing — then sunset from the Shibuya Sky rooftop','teamLab Planets: art you walk through, barefoot','A day trip to golden Nikko in the mountains']},
+ {id:'nikko',k:'日光',name:'Nikko',when:'Nov 9 · Day 4',teaser:'Golden shrines and a 97-metre waterfall.',
+  list:['Toshogu — the most lavishly carved shrine in Japan','A sacred red bridge over a mountain river','If the weather smiles: Kegon Falls and a lake in the clouds']},
+ {id:'fuji',k:'富士山',name:'Mt Fuji',when:'Nov 10–12 · Days 5–6',teaser:'The mountain, seen from a hot spring.',
+  list:['Chureito Pagoda — THE postcard view of Fuji','Two nights in a ryokan: kimono robes, onsen baths, dinner in a dozen tiny dishes','Hike #1: a ridge walk with Fuji filling the whole horizon']},
+ {id:'kyoto',k:'京都',name:'Kyoto',when:'Nov 12–17 · Days 7–11',teaser:'A thousand years of temples in full autumn colour.',
+  list:['Kiyomizu-dera and its huge wooden stage above the maples','Evening lanterns in Gion, the old geisha district','Stone lanes, tea houses and the best leaf-peeping of the trip']},
+ {id:'nara',k:'奈良',name:'Fushimi & Nara',when:'Nov 13 · Day 8',teaser:'Ten thousand red gates — and deer that bow.',
+  list:['Walking the endless torii tunnels of Fushimi Inari at dawn','Nara Park: wild deer that bow for crackers','The Great Buddha — 15 metres of calm']},
+ {id:'osaka',k:'大阪',name:'Osaka',when:'Nov 14 · Day 9',teaser:"Japan's kitchen. Come hungry.",
+  list:['Takoyaki and street food under the neon of Dotonbori','Osaka Castle in the morning light','An evening of eating things we cannot pronounce']},
+ {id:'kurama',k:'鞍馬',name:'Kurama Trail',when:'Nov 15 · Day 10',teaser:'A pilgrimage through a cedar forest.',
+  list:['Hike #2: temple-to-temple over a forested mountain pass','Lanterns, moss and thousand-year-old cedars','Lunch in Kibune, a tiny village on a river']},
+ {id:'arashiyama',k:'嵐山',name:'Arashiyama',when:'Nov 16 · Day 11',teaser:'Bamboo groves and cheeky monkeys.',
+  list:['The bamboo forest at first light, before the crowds','Wild snow monkeys on a hill above Kyoto','Gardens and preserved streets in peak autumn colour']},
+ {id:'hiroshima',k:'広島',name:'Hiroshima',when:'Nov 17 · Day 12',teaser:'A moving morning — and legendary okonomiyaki.',
+  list:['The Peace Park and its thousands of folded paper cranes','A quiet, important museum we will see together','Dinner: Hiroshima-style okonomiyaki, built in delicious layers']},
+ {id:'miyajima',k:'宮島',name:'Miyajima',when:'Nov 18–19 · Days 13–14',teaser:'We sleep on the island of the floating shrine.',
+  list:['The great torii gate floating at high tide — timed just for us','Hike #3: Mt Misen, with the sea and islands below','After the day-trippers leave, the lantern-lit island is ours']}
+];
+
+/* ---------------- countdown ---------------- */
+const start=new Date(2026,10,6,0,0,0), end=new Date(2026,10,22,0,0,0);
+const $=id=>document.getElementById(id);
+function tick(){
+  const now=new Date();
+  if(now>=start&&now<end){
+    const day=Math.floor((now-start)/86400000)+1;
+    $('count').innerHTML=`<div class="unit" style="min-width:240px"><b>Day ${day}</b><span>in Japan!</span></div>`;
+    $('countnote').textContent='It\u2019s happening, Mama! \uD83C\uDF41'; return;
+  }
+  if(now>=end){
+    $('count').innerHTML=`<div class="unit" style="min-width:260px"><b class="disp">ただいま</b><span>what a trip that was</span></div>`;
+    $('countnote').textContent='Home again — time to print the photo album.'; return;
+  }
+  let t=Math.floor((start-now)/1000);
+  const d=Math.floor(t/86400); t-=d*86400;
+  const h=Math.floor(t/3600); t-=h*3600;
+  const m=Math.floor(t/60), s=t-m*60;
+  $('d').textContent=d; $('h').textContent=h; $('m').textContent=m; $('s').textContent=s;
+}
+tick(); setInterval(tick,1000);
+
+/* ---------------- falling leaves ---------------- */
+(function(){
+  const host=$('leaves'), cols=['#C93A2E','#D9542B','#E0A32E'];
+  const leafSVG=c=>`<svg width="22" height="22" viewBox="-12 -12 24 24"><path d="M0,-11 L2,-4.5 L7.5,-8.5 L5,-2.5 L11,-2.5 L5.5,1 L8.5,7.5 L2.5,4 L0,11.5 L-2.5,4 L-8.5,7.5 L-5.5,1 L-11,-2.5 L-5,-2.5 L-7.5,-8.5 L-2,-4.5 Z" fill="${c}"/></svg>`;
+  for(let i=0;i<14;i++){
+    const el=document.createElement('div'); el.className='leaf';
+    el.style.left=(Math.random()*100)+'vw';
+    el.style.animationDuration=(9+Math.random()*10)+'s';
+    el.style.animationDelay=(-Math.random()*18)+'s';
+    el.style.opacity=.5+Math.random()*.5;
+    const sc=.6+Math.random()*.8; el.style.transformOrigin='center';
+    el.innerHTML=leafSVG(cols[i%3]);
+    el.firstChild.style.animationDuration=(2+Math.random()*2)+'s';
+    el.firstChild.style.width=(22*sc)+'px'; el.firstChild.style.height=(22*sc)+'px';
+    host.appendChild(el);
+  }
+})();
+
+/* ---------------- build cards + stamp slots ---------------- */
+const got=new Set();
+const grid=$('grid'), slots=$('slots');
+stops.forEach((st,i)=>{
+  const card=document.createElement('button'); card.className='card'; card.id='card-'+st.id;
+  card.setAttribute('aria-haspopup','dialog');
+  card.innerHTML=`<div class="art">${scenes[st.id]}</div>
+    <span class="kanji">${st.k}</span><span class="stamped">${st.k[0]}</span>
+    <div class="body"><div class="when">${st.when}</div><h3 class="disp">${st.name}</h3><p>${st.teaser}</p></div>`;
+  card.addEventListener('click',()=>openStop(i));
+  grid.appendChild(card);
+  const slot=document.createElement('div'); slot.className='slot'; slot.id='slot-'+st.id; slot.textContent=st.k[0];
+  slot.title=st.name; slots.appendChild(slot);
+});
+
+/* ---------------- modal ---------------- */
+const ov=$('overlay');
+let lastFocus=null;
+function openStop(i){
+  const st=stops[i]; lastFocus=document.activeElement;
+  $('mart').innerHTML=scenes[st.id];
+  $('mwhen').textContent=st.when; $('mtitle').textContent=st.name; $('mjp').textContent=st.k;
+  $('mlist').innerHTML=st.list.map(x=>`<li>${x}</li>`).join('');
+  $('mstamp').textContent=st.k[0];
+  ov.classList.add('open'); document.body.style.overflow='hidden'; $('close').focus();
+  if(!got.has(st.id)){
+    got.add(st.id);
+    const slot=$('slot-'+st.id); slot.classList.add('got','pop');
+    $('card-'+st.id).classList.add('got');
+    $('stampcount').textContent=got.size;
+    if(got.size===stops.length){ $('finale').classList.add('show'); }
+  }
+}
+function closeModal(){ ov.classList.remove('open'); document.body.style.overflow=''; if(lastFocus)lastFocus.focus(); }
+$('close').addEventListener('click',closeModal);
+ov.addEventListener('click',e=>{ if(e.target===ov) closeModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&ov.classList.contains('open')) closeModal(); });
+</script>
+</body>
+</html>
